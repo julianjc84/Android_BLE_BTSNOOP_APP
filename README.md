@@ -8,6 +8,31 @@ filtering and CSV export.
 Useful for reverse-engineering BLE peripherals and their companion apps without
 pulling logs off the phone and opening them in Wireshark every time.
 
+## Screenshots
+
+<table>
+  <tr>
+    <td><img src="docs/screenshots/01-idle.png" width="260" alt="Idle screen explaining the play, pause, stop, save and clear controls"></td>
+    <td><img src="docs/screenshots/02-live-capture.png" width="260" alt="Live capture filtered to one device, showing ATT notifications on 0xFFE1"></td>
+    <td><img src="docs/screenshots/03-stopped.png" width="260" alt="Stopped capture showing TX write commands and RX notifications"></td>
+  </tr>
+  <tr>
+    <td align="center">Idle</td>
+    <td align="center">Live capture, filtered to one device</td>
+    <td align="center">Stopped, ready to save</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/04-save-capture.png" width="260" alt="Save capture dialog with device filter and filename"></td>
+    <td><img src="docs/screenshots/05-settings-snoop-log.png" width="260" alt="Settings: snoop log size, clear snoop log, recovery steps, copy raw file"></td>
+    <td><img src="docs/screenshots/06-settings-capture.png" width="260" alt="Settings: show advertising packets and live CSV recording toggles"></td>
+  </tr>
+  <tr>
+    <td align="center">Save to CSV</td>
+    <td align="center">Settings: snoop log</td>
+    <td align="center">Settings: capture and live CSV</td>
+  </tr>
+</table>
+
 ## Requirements
 
 - Android 12 or newer (API 31+).
@@ -67,10 +92,10 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 The debug build installs as `com.jc84.blesnooplogger.debug` with the label
 "(D) BLE Snoop", so it can sit alongside a release build.
 
-A debug keystore is checked in at `keystore/debug.keystore` with the stock
-`android` / `androiddebugkey` credentials. It is not a secret. It exists so
-every machine signs debug builds identically and `adb install` from a second
-machine does not fail with `INSTALL_FAILED_UPDATE_INCOMPATIBLE`.
+Debug builds are signed with your machine's own `~/.android/debug.keystore`,
+as with any Android project. No keystore is checked in, so a debug build from
+a second machine will not install over one from the first
+(`INSTALL_FAILED_UPDATE_INCOMPATIBLE`); uninstall the old build first.
 
 There is no release signing config in the repo. To build a signed release,
 add a `keystore.properties` file (already gitignored) and wire it into
