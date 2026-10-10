@@ -1,0 +1,95 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.compose)
+}
+
+android {
+    compileSdk = 37
+    namespace = 'com.jc84.blesnooplogger'
+
+    defaultConfig {
+        applicationId = "com.jc84.blesnooplogger"
+        minSdk = 31
+        targetSdk = 37
+        versionCode = 1
+        versionName = "0.1.0"
+    }
+
+    // Optional shared signing config. Lives in the private sibling repo
+    // ../Android_BLE_BTSNOOP_Julian_Files (OMV-only, never on GitHub) so every
+    // dev machine signs debug builds identically and `adb install` from a second
+    // machine does not fail with INSTALL_FAILED_UPDATE_INCOMPATIBLE. When the
+    // file is absent (public clones), Gradle uses the normal per-machine
+    // ~/.android/debug.keystore and everything still builds.
+    def signingPropsFile = rootProject.file("../Android_BLE_BTSNOOP_Julian_Files/signing/keystore.properties")
+    def signingProps = new Properties()
+    if (signingPropsFile.exists()) {
+        signingPropsFile.withInputStream { signingProps.load(it) }
+    }
+
+    signingConfigs {
+        if (signingProps.containsKey("debugStoreFile")) {
+            debug {
+                storeFile = new File(signingPropsFile.parentFile, signingProps["debugStoreFile"])
+                storePassword = signingProps["debugStorePassword"]
+                keyAlias = signingProps["debugKeyAlias"]
+                keyPassword = signingProps["debugKeyPassword"]
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix = ".debug"
+            // signingConfigs.debug is Gradle's built-in default when no override
+            // was registered above, so this line is correct in both cases.
+            signingConfig = signingConfigs.debug
+        }
+        release {
+            minifyEnabled = false
+        }
+    }
+
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+}
+
+kotlin {
+    jvmToolchain(25)
+}
+
+dependencies {
+    // Kotlin
+    implementation libs.kotlin.stdlib
+    implementation libs.kotlinx.coroutines.core
+    implementation libs.kotlinx.coroutines.android
+
+    // Compose
+    implementation platform(libs.compose.bom)
+    implementation libs.compose.foundation
+    implementation libs.compose.runtime
+    implementation libs.compose.ui
+    implementation libs.compose.material3
+    implementation libs.compose.material.icons.extended
+    debugImplementation libs.compose.ui.tooling
+
+    // Lifecycle
+    implementation libs.lifecycle.viewmodel.ktx
+    implementation libs.lifecycle.viewmodel.compose
+    implementation libs.lifecycle.runtime.ktx
+
+    // AndroidX
+    implementation libs.core.ktx
+    implementation libs.activity.compose
+
+    // Timber
+    implementation libs.timber
+}

@@ -1,0 +1,68 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- === TOP: Android bugdroid head, flat bottom at y=50 === -->
+
+    <!-- Head dome (semicircle, flat bottom merges into BT symbol) -->
+    <path
+        android:pathData="M34,50 A20,20 0 0,1 74,50 Z"
+        android:fillColor="#FFFFFF"/>
+
+    <!-- Left antenna -->
+    <path
+        android:pathData="M43,30 L40,22"
+        android:strokeWidth="2.5"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"/>
+
+    <!-- Right antenna -->
+    <path
+        android:pathData="M65,30 L68,22"
+        android:strokeWidth="2.5"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"/>
+
+    <!-- Left eye -->
+    <path
+        android:pathData="M46,40 m-2.2,0 a2.2,2.2 0 1,1 4.4,0 a2.2,2.2 0 1,1 -4.4,0"
+        android:fillColor="#0D47A1"/>
+
+    <!-- Right eye -->
+    <path
+        android:pathData="M62,40 m-2.2,0 a2.2,2.2 0 1,1 4.4,0 a2.2,2.2 0 1,1 -4.4,0"
+        android:fillColor="#0D47A1"/>
+
+    <!-- === BOTTOM: Lower half of Bluetooth rune, cut at y=50 === -->
+
+    <!-- Crossing line (mid-left to lower-right point) -->
+    <path
+        android:pathData="M41,50 L67,69"
+        android:strokeWidth="3"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"/>
+
+    <!-- Lower-right point back to center-bottom -->
+    <path
+        android:pathData="M67,69 L54,88"
+        android:strokeWidth="3"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"/>
+
+    <!-- Lower-left diagonal to center-bottom -->
+    <path
+        android:pathData="M41,69 L54,88"
+        android:strokeWidth="3"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"/>
+
+    <!-- Vertical line from cut to bottom -->
+    <path
+        android:pathData="M54,50 L54,88"
+        android:strokeWidth="3"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"/>
+
+</vector>
